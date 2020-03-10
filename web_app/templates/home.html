@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #e9e9e9;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .topnav a.active {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .topnav .search-container {
+            float: left;
+        }
+
+        .topnav input[type=text] {
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 17px;
+            border: none;
+            width: 600px;
+            align-content: center;
+        }
+
+        .topnav .search-container button {
+            float: left;
+            padding: 6px 10px;
+            margin-top: 8px;
+            margin-left: 16px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .topnav .search-container button:hover {
+            background: brown;
+        }
+
+        span.song_list {
+            display: block;
+            width: 50%;
+            height: 50px;
+            padding: 10px;
+            margin-left: 25px;
+            margin-top: 10px;
+            float: left;
+            #border: 1px solid gray;
+            background-color: ghostwhite;
+        }
+
+    </style>
+</head>
+
+<div class="topnav">
+    <a class="active" href="/">Home</a>
+
+    <div class="search-container">
+        <form action="{{ url_for('index_page') }}" method="get" name="search">
+            {{ form.q(size=20) }}
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+
+        {% if table %}
+            <h4>Search results for {{ result_query }}:</h4>
+        {% endif %}
+    </div>
+</div>
+
+<div style="padding-left:16px; padding-top: 30px">
+    {% for value in web_data %}
+        <span class="song_list"><a
+                href="{{ url_for('song_page', type=value) }}">{{ value.title + ' by ' +  value.artist }}</a></span>
+    {% endfor %}
+</div>
+</html>
